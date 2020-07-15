@@ -8,13 +8,7 @@ var handlebars = require('express-handlebars')
     app.engine('handlebars', handlebars.engine);
     app.set('view engine', 'handlebars');
 
-var fortunes = [
-    "Победи свои стрази",
-    "Рекам нудны истоки",
-    "Не бойся неводомого",
-    "ТЕбя ждет приятный сюрприз",
-    "Будь проще везде, где только можно",
-]
+var fortune = require('./lib/fortune.js');
 
 app.set('port', process.env.PORT || 3000);
 
@@ -25,9 +19,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/about', function(req, res){
-    var randomFortune = 
-        fortunes[Math.floor(Math.random()*fortunes.length)];
-    res.render('about', {fortune: randomFortune});
+    res.render('about', {fortune: fortune.getFortune});
 });
 
 // Пользовательская странциа 404
